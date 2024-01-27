@@ -1,0 +1,118 @@
+@page "/calculator"
+@rendermode InteractiveServer
+
+<PageTitle>Calculator</PageTitle>
+
+<style>
+    .calculator-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+    }
+
+    .calculator-container h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    input[type=number] {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .button-group {
+        text-align: center;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .result {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #333;
+    }
+</style>
+
+<div class="calculator-container">
+    <h1>Calculator</h1>
+
+    <div class="input-group">
+        <label for="firstNumber">First Number:</label>
+        <input type="number" id="firstNumber" @bind="firstNumber" />
+    </div>
+
+    <div class="input-group">
+        <label for="secondNumber">Second Number:</label>
+        <input type="number" id="secondNumber" @bind="secondNumber" />
+    </div>
+
+    <div class="button-group">
+        <button class="btn btn-primary" @onclick="Add">Add</button>
+        <button class="btn btn-secondary" @onclick="Subtract">Subtract</button>
+        <button class="btn btn-success" @onclick="Multiply">Multiply</button>
+        <button class="btn btn-danger" @onclick="Divide">Divide</button>
+    </div>
+
+    <div class="result">
+        <span role="status">Result: @result</span>
+    </div>
+</div>
+
+@code {
+    private double firstNumber;
+    private double secondNumber;
+    private double result;
+
+    private void Add()
+    {
+        result = firstNumber + secondNumber;
+    }
+
+    private void Subtract()
+    {
+        result = firstNumber - secondNumber;
+    }
+
+    private void Multiply()
+    {
+        result = firstNumber * secondNumber;
+    }
+
+    private void Divide()
+    {
+        if (secondNumber != 0)
+        {
+            result = firstNumber / secondNumber;
+        }
+        else
+        {
+            result = double.NaN; // Not a Number
+        }
+    }
+}
