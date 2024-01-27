@@ -1,0 +1,35 @@
+﻿@page "/api"
+@rendermode InteractiveServer
+
+<PageTitle>Fetch API</PageTitle>
+
+<div>
+    <h3>API</h3>
+    <p>This is an example of fetch api with http get request.</p>
+
+    <button @onclick="FetchData">Get Data</button>
+
+    @if(todo != null)
+    {
+        <h3 style="padding-top: 15px;">Title: @todo.title</h3>
+        <p>Completed: @todo.completed</p>
+    }
+</div>
+
+@code {
+    private Todo todo;
+    private HttpClient httpClient = new HttpClient();
+    public async Task FetchData()
+    {
+        todo = await httpClient.GetFromJsonAsync<Todo>("https://jsonplaceholder.typicode.com/todos/1");
+    }
+
+
+    private class Todo
+    {
+        public int userId { get; set; }
+        public int id { get; set; }
+        public string title { get; set; }
+        public bool completed { get; set; }
+    }
+}
